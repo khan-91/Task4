@@ -64,10 +64,18 @@ class Game {
         const fairRandom2 = new FairRandom(remainingBoxes.length);
         console.log("Morty: Let’s, uh, generate another value now, I mean, to select a box to keep in the game.");
         console.log(`Morty: HMAC2=${fairRandom2.getHMAC()}`);
-        const rickValue3 = await this.askRickNumber(
-            `Morty: Rick, enter your number [0,${remainingBoxes.length}), and, uh, don’t say I didn’t play fair, okay?`,
-            0, remainingBoxes.length
-        );
+
+        let rickValue3;
+        if (remainingBoxes.length === 1) {
+            // Only one box left
+            rickValue3 = 0;
+            console.log(`Morty: Only one box left, you get box ${remainingBoxes[0]}.`);
+        } else {
+            rickValue3 = await this.askRickNumber(
+                `Morty: Rick, enter your number [0,${remainingBoxes.length}), and, uh, don’t say I didn’t play fair, okay?`,
+                0, remainingBoxes.length
+            );
+        }
 
         const mortyValue2 = fairRandom2.mortyValue;
         const key2 = fairRandom2.key.toString("hex");
@@ -83,7 +91,9 @@ class Game {
 
         console.log(`Morty: I'm keeping the box you chose, I mean ${rickValue2}, and the box ${remainingBoxes.find(b => b !== rickValue2)}.`);
         console.log("Morty: You can switch your box (enter 0), or, you know, stick with it (enter 1).");
-        const stayOrSwitch = await this.askRickNumber("", 0, 2);
+
+        // If only one box, Rick cannot switch
+        const stayOrSwitch = remainingBoxes.length === 1 ? 1 : await this.askRickNumber("", 0, 2);
 
         let finalChoice = rickValue2;
         if (stayOrSwitch === 0) finalChoice = remainingBoxes.find(b => b !== rickValue2);
@@ -105,5 +115,3 @@ class Game {
 }
 
 module.exports = Game;
-
-
