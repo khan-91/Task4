@@ -6,7 +6,6 @@ class ClassicMorty {
 
     leaveBoxes(rickGuess, portalBox, rickValue2, mortyValue2) {
         const boxes = [...Array(this.numBoxes).keys()];
-        console.log(`boxes: ${boxes}`);
         let otherBox;
 
         if (rickGuess === portalBox) {
@@ -14,9 +13,6 @@ class ClassicMorty {
             const candidates = boxes.filter(b => b !== portalBox);
             const finalIndex = (rickValue2 + mortyValue2) % candidates.length;
             otherBox = candidates[finalIndex];
-            console.log(`Candidates: ${candidates}`);
-            console.log(`Final index: ${finalIndex}`);
-            console.log(`OtherBox: ${otherBox}`);
         } else {
             // Rick wrong guess 
             otherBox = rickGuess;
