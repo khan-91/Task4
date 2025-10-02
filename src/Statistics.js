@@ -19,8 +19,14 @@ class Statistics {
     }
 
     print(morty) {
-        const estimateSwitched = this.switchedRounds ? (this.switchedWins / this.switchedRounds).toFixed(3) : "0.000";
-        const estimateStayed = this.stayedRounds ? (this.stayedWins / this.stayedRounds).toFixed(3) : "0.000";
+        // যদি কোনো round না থাকে, তাহলে question mark দেখাও
+        const estimateSwitched = this.switchedRounds > 0
+            ? (this.switchedWins / this.switchedRounds).toFixed(3)
+            : "?";
+
+        const estimateStayed = this.stayedRounds > 0
+            ? (this.stayedWins / this.stayedRounds).toFixed(3)
+            : "?";
 
         const exactSwitched = morty.probabilitySwitch().toFixed(3);
         const exactStayed = morty.probabilityStay().toFixed(3);
@@ -36,7 +42,7 @@ class Statistics {
             ["P (exact)", exactSwitched, exactStayed]
         );
 
-        console.log("                  GAME STATS");
+        console.log("                GAME STATS");
         console.log(table.toString());
     }
 }
