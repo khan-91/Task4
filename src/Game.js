@@ -62,7 +62,7 @@ class Game {
 
         if (this.morty.constructor.name === "ClassicMorty") {
             // --- ClassicMorty 2nd provably fair random ---
-            fairRandom2 = new FairRandom(this.numBoxes-1); // Morty's secret value + HMAC
+            fairRandom2 = new FairRandom(this.numBoxes - 1); // Morty's secret value + HMAC
             mortyValue2 = fairRandom2.mortyValue;
             console.log(`Morty: HMAC2=${fairRandom2.getHMAC()}`);
 
@@ -105,6 +105,7 @@ class Game {
         // Update stats
         this.stats.addResult(stayOrSwitch === 0, stayOrSwitch === 1, win);
 
+
         // --- Show fairness ---
         console.log(`Morty: 1st secret = ${secret1}, KEY1=${key1}`);
         console.log(`Morty: 1st fair number = (${rickValue1} + ${secret1}) % ${this.numBoxes} = ${portalBox}`);
@@ -112,7 +113,14 @@ class Game {
         if (this.morty.constructor.name === "ClassicMorty") {
             const key2 = fairRandom2.key.toString("hex");
             console.log(`Morty: 2nd secret = ${mortyValue2}, KEY2=${key2}`);
-            const display2 = (rickValue2 + mortyValue2) % remainingBoxes.length;
+            let display2;
+            if (rickGuess === portalBox) {
+                // Rick right guess
+                display2 = (rickValue2 + mortyValue2) % remainingBoxes.length;
+            } else {
+                // Rick wrong guess
+                display2 = remainingBoxes.indexOf(portalBox);
+            }
             console.log(`Morty: 2nd fair number = (${rickValue2} + ${mortyValue2}) % ${remainingBoxes.length} = ${display2}`);
         }
 
