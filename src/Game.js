@@ -113,7 +113,7 @@ class Game {
             const key2 = fairRandom2.key.toString("hex");
             console.log(`Morty: 2nd secret = ${mortyValue2}, KEY2=${key2}`);
             const display2 = (rickValue2 + mortyValue2) % remainingBoxes.length;
-            console.log(`Morty: 2nd fair number = (${rickValue2} + ${mortyValue2}) % ${remainingBoxes.length} = ${display2} (for display)`);
+            console.log(`Morty: 2nd fair number = (${rickValue2} + ${mortyValue2}) % ${remainingBoxes.length} = ${display2}`);
         }
 
         console.log(`Morty: So the portal gun ${win ? "is in your box!" : `stays in box ${portalBox}.`}`);
