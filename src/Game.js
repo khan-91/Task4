@@ -62,7 +62,7 @@ class Game {
 
         if (this.morty.constructor.name === "ClassicMorty") {
             // --- ClassicMorty 2nd provably fair random ---
-            fairRandom2 = new FairRandom(this.numBoxes); // Morty's secret value + HMAC
+            fairRandom2 = new FairRandom(this.numBoxes-1); // Morty's secret value + HMAC
             mortyValue2 = fairRandom2.mortyValue;
             console.log(`Morty: HMAC2=${fairRandom2.getHMAC()}`);
 
