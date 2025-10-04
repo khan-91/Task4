@@ -1,9 +1,10 @@
 const crypto = require("crypto");
+const KEY_SIZE_IN_BYTES = 32;
 
 class FairRandom {
     constructor(range) {
         this.range = range;
-        this.key = crypto.randomBytes(32); // 256-bit key
+        this.key = crypto.randomBytes(KEY_SIZE_IN_BYTES);
         this.mortyValue = crypto.randomInt(0, range); // Morty's secret value
         this.hmac = crypto.createHmac("sha3-512", this.key)
             .update(Buffer.from([this.mortyValue]))
